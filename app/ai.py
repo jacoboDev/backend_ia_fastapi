@@ -9,7 +9,7 @@ load_dotenv()  # carga .env
 
 
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-model = genai.GenerativeModel("gemini-1.5-flash")
+model = genai.GenerativeModel("models/gemini-3-flash-preview")
 
 
 
@@ -32,7 +32,9 @@ def ask_ai(question: str) -> str:
     )
     return response.choices[0].message.content
 
-
 def ask_gemini(question: str) -> str:
-    response = model.generate_content(question)
-    return response.text
+    try:
+        response = model.generate_content(question)
+        return response.text
+    except Exception as e:
+        return f"Gemini error: {e}"
