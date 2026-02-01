@@ -80,9 +80,10 @@ pip install -r requirements.txt
 HOW TO EXECUTE SERVER:
 
 From project root:
-cd backend-ia-fastapi
-venv\Scripts\activate
-uvicorn app.main:app --reload
+cd C:\WORKSPACE\backend-ia-fastapi
+venv\Scripts\activate   # activas el venv
+uvicorn app.main:app --reload  # ejecutas el servidor
+
 
 Open navigator:
 http://127.0.0.1:8000/docs
@@ -99,3 +100,12 @@ or
 {
   "question": "Explícame qué es REST en una frase"
 }
+
+
+
+------
+
+execute test_main:
+cd C:\WORKSPACE\backend-ia-fastapi
+venv\Scripts\activate   # activas el venv
+uvicorn test_main:app --reload
