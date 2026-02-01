@@ -34,7 +34,7 @@ pip install fastapi uvicorn openai python-dotenv
 
 _______________________HELP
 
-- Create requirements.txt for saving venv config into git
+- Create / update into requirements.txt for saving venv config into git
 
 pip freeze > requirements.txt
 

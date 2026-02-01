@@ -1,7 +1,8 @@
 import requests
 from fastapi import FastAPI
 from app.schemas import QuestionRequest, AnswerResponse
-from app.ai import ask_ai
+from app.ai import ask_ai, ask_gemini
+
 
 
 app = FastAPI(title="Mini Backend IA")
@@ -21,11 +22,22 @@ def ask(request: QuestionRequest):
     answer = ask_ai(request.question)
     return {"answer": answer}
 
-@app.get("/ask_free")
-def ask_free(question: str):
-    response = requests.post(
-        "https://www.torgpt.space/api/v1/chat",
-        json={"messages":[{"role":"user","content": question}]}
-    )
-    return response.json()
+@app.get("/ask_Tor_GPT")
+def ask_Tor_GPT(question: str):
+    try:
+        response = requests.post(
+            "https://www.torgpt.space/api/v1/chat",
+            json={"messages": [{"role": "user", "content": question}]},
+            timeout=10
+        )
+        return {
+            "status_code": response.status_code,
+            "text": response.text
+        }
+    except Exception as e:
+        return {"error": str(e)}
 
+
+@app.get("/ask_Gemini")
+def ask_Gemini(question: str):
+    return {"answer": ask_gemini(question)}

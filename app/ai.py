@@ -2,8 +2,16 @@ from openai import OpenAI
 import os
 
 from dotenv import load_dotenv
+import google.generativeai as genai
 
 load_dotenv()  # carga .env
+
+
+
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+model = genai.GenerativeModel("gemini-1.5-flash")
+
+
 
 API_KEY = os.getenv("OPENAI_API_KEY")
 if not API_KEY:
@@ -23,3 +31,8 @@ def ask_ai(question: str) -> str:
         ]
     )
     return response.choices[0].message.content
+
+
+def ask_gemini(question: str) -> str:
+    response = model.generate_content(question)
+    return response.text
