@@ -109,3 +109,13 @@ execute test_main:
 cd C:\WORKSPACE\backend-ia-fastapi
 venv\Scripts\activate   # activas el venv
 uvicorn test_main:app --reload
+
+
+
+
+----------- TorGPT
+install library:
+cd C:\WORKSPACE\backend-ia-fastapi
+venv\Scripts\activate
+pip install requests
+

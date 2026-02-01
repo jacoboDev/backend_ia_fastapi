@@ -1,3 +1,4 @@
+import requests
 from fastapi import FastAPI
 from app.schemas import QuestionRequest, AnswerResponse
 from app.ai import ask_ai
@@ -19,3 +20,12 @@ def health():
 def ask(request: QuestionRequest):
     answer = ask_ai(request.question)
     return {"answer": answer}
+
+@app.get("/ask_free")
+def ask_free(question: str):
+    response = requests.post(
+        "https://www.torgpt.space/api/v1/chat",
+        json={"messages":[{"role":"user","content": question}]}
+    )
+    return response.json()
+
