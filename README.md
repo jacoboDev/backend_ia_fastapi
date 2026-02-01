@@ -22,6 +22,9 @@ deactivate
 
 
 
+---- Our first dependencies:
+pip install fastapi uvicorn openai python-dotenv
+
 
 
 
@@ -52,9 +55,7 @@ ___________
 Error MUY típico
 pip install -r requirements.txt
 
-
 sin antes:
-
 venv\Scripts\activate
 
 
