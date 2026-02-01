@@ -80,6 +80,7 @@ pip install -r requirements.txt
 HOW TO EXECUTE SERVER:
 
 From project root:
+cd backend-ia-fastapi
 venv\Scripts\activate
 uvicorn app.main:app --reload
 
