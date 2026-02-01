@@ -17,8 +17,8 @@ def read_root():
 def health():
     return {"status": "ok"}
 
-@app.post("/ask", response_model=AnswerResponse)
-def ask(request: QuestionRequest):
+@app.post("/ask_OpenAI", response_model=AnswerResponse)
+def ask_OpenAI(request: QuestionRequest):
     answer = ask_ai(request.question)
     return {"answer": answer}
 
