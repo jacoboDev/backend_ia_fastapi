@@ -72,3 +72,29 @@ python -m venv venv      ← crear entorno
 venv\Scripts\activate   ← activarlo
 pip install -r requirements.txt
 ```
+
+
+
+--------
+
+HOW TO EXECUTE SERVER:
+
+From project root:
+venv\Scripts\activate
+uvicorn app.main:app --reload
+
+Open navigator:
+http://127.0.0.1:8000/docs
+
+This is an automatic swagger.
+
+You can try:
+
+GET /health
+POST /ask
+
+or
+
+{
+  "question": "Explícame qué es REST en una frase"
+}

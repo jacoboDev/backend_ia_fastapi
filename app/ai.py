@@ -1,6 +1,17 @@
 from openai import OpenAI
 import os
 
+from dotenv import load_dotenv
+
+load_dotenv()  # carga .env
+
+API_KEY = os.getenv("OPENAI_API_KEY")
+if not API_KEY:
+    raise Exception("No se encontró OPENAI_API_KEY")
+
+client = OpenAI(api_key=API_KEY)
+
+
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 def ask_ai(question: str) -> str:

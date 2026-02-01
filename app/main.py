@@ -1,11 +1,15 @@
 from fastapi import FastAPI
 from app.schemas import QuestionRequest, AnswerResponse
 from app.ai import ask_ai
-from dotenv import load_dotenv
 
-load_dotenv()
 
 app = FastAPI(title="Mini Backend IA")
+
+
+@app.get("/")
+def read_root():
+    return {"message": "Hola, tu backend de IA funciona!"}
+
 
 @app.get("/health")
 def health():
