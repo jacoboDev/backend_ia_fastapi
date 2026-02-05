@@ -57,7 +57,7 @@ def ask_Tor_GPT(question: str):
         return {"error": str(e)}
 
 
-@app.get("/ask_Gemini")
-def ask_Gemini(question: str):
+@app.get("/askGemini")
+def askGemini(question: str):
     answer = ask_gemini(question)
     return {"question": question, "answer": answer}

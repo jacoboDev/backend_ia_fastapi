@@ -24,7 +24,7 @@ async function sendQuestion() {
     document.getElementById("answer").innerText = "Procesando...";
     
     try {
-        const response = await fetch(`/ask?question=${encodeURIComponent(question)}`);
+        const response = await fetch(`/askGemini?question=${encodeURIComponent(question)}`);
         const data = await response.json();
         document.getElementById("answer").innerText = data.answer;
     } catch (e) {
