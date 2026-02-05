@@ -119,3 +119,10 @@ cd C:\WORKSPACE\backend-ia-fastapi
 venv\Scripts\activate
 pip install requests
 
+
+
+
+--------------- OPEN FRONTEND
+
+uvicorn app.main:app --reload
+http://127.0.0.1:8000/static/index.html

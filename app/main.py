@@ -1,11 +1,30 @@
-import requests
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
+
 from app.schemas import QuestionRequest, AnswerResponse
+import requests
 from app.ai import ask_ai, ask_gemini
 
 
-
 app = FastAPI(title="Mini Backend IA")
+
+
+# Serve static files
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+# Allow CORS between frontend navigator and backend
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+#    allow_origins=["http://localhost:3000"],
+    allow_methods=["*"],
+#    allow_methods=["GET", "POST"],
+    allow_headers=["*"]
+#    allow_headers=["Content-Type", "Authorization"]
+)
+
+
 
 
 @app.get("/")

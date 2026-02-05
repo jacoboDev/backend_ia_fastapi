@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi IA - Frontend</title>
+<style>
+body { font-family: Arial, sans-serif; margin: 2em; }
+input, button { padding: 0.5em; margin: 0.5em 0; width: 100%; }
+#answer { margin-top: 1em; padding: 1em; border: 1px solid #ccc; border-radius: 5px; white-space: pre-wrap; }
+</style>
+</head>
+<body>
+<h1>Pregunta a la IA</h1>
+<input type="text" id="question" placeholder="Escribe tu pregunta">
+<button onclick="sendQuestion()">Enviar</button>
+<div id="answer"></div>
+
+<script>
+async function sendQuestion() {
+    const question = document.getElementById("question").value;
+    if(!question) return;
+    
+    document.getElementById("answer").innerText = "Procesando...";
+    
+    try {
+        const response = await fetch(`/ask?question=${encodeURIComponent(question)}`);
+        const data = await response.json();
+        document.getElementById("answer").innerText = data.answer;
+    } catch (e) {
+        document.getElementById("answer").innerText = "Error al conectarse al backend.";
+        console.error(e);
+    }
+}
+</script>
+</body>
+</html>
