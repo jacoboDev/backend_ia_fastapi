@@ -107,7 +107,7 @@ or
 
 execute test_main:
 cd C:\WORKSPACE\backend-ia-fastapi
-venv\Scripts\activate   # activas el venv
+venv\Scripts\activate  
 uvicorn test_main:app --reload
 
 
