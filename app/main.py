@@ -26,7 +26,7 @@ app.add_middleware(
 
 
 
-
+# root
 @app.get("/")
 def read_root():
     return {"message": "Hola, tu backend de IA funciona!"}
@@ -36,11 +36,14 @@ def read_root():
 def health():
     return {"status": "ok"}
 
+
+# OpenAI
 @app.post("/ask_OpenAI", response_model=AnswerResponse)
 def ask_OpenAI(request: QuestionRequest):
     answer = ask_ai(request.question)
     return {"answer": answer}
 
+#TorGPT
 @app.get("/ask_Tor_GPT")
 def ask_Tor_GPT(question: str):
     try:
@@ -57,7 +60,14 @@ def ask_Tor_GPT(question: str):
         return {"error": str(e)}
 
 
+#Gemini
 @app.get("/askGemini")
 def askGemini(question: str):
     answer = ask_gemini(question)
     return {"question": question, "answer": answer}
+
+
+@app.post("ask_Gemini_Post", response_model=AnswerResponse)
+def ask_gemini_post(request: QuestionRequest):
+    answer = ask_gemini(request.question)
+    return {"answer": answer}

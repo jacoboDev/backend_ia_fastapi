@@ -1,37 +1,89 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mi IA - Frontend</title>
-<style>
-body { font-family: Arial, sans-serif; margin: 2em; }
-input, button { padding: 0.5em; margin: 0.5em 0; width: 100%; }
-#answer { margin-top: 1em; padding: 1em; border: 1px solid #ccc; border-radius: 5px; white-space: pre-wrap; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi IA - Hub de Modelos</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 2em auto; padding: 0 1em; line-height: 1.6; }
+        .card { border: 1px solid #ddd; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        select, input, button { padding: 0.8em; margin: 0.5em 0; width: 100%; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box; }
+        button { background-color: #007bff; color: white; border: none; cursor: pointer; font-weight: bold; }
+        button:hover { background-color: #0056b3; }
+        button:disabled { background-color: #ccc; }
+        #answer { margin-top: 1.5em; padding: 1em; border-left: 5px solid #007bff; background-color: #f9f9f9; white-space: pre-wrap; min-height: 50px; }
+        .loader { color: #555; font-style: italic; }
+    </style>
 </head>
 <body>
-<h1>Pregunta a la IA</h1>
-<input type="text" id="question" placeholder="Escribe tu pregunta">
-<button onclick="sendQuestion()">Enviar</button>
-<div id="answer"></div>
+    <div class="card">
+        <h1>Centro de Mando IA</h1>
+        
+        <label for="modelSelect">Elegir cerebro:</label>
+        <select id="modelSelect">
+            <option value="gemini">Gemini (GET - Rápido)</option>
+            <option value="gemini_post">Gemini 2 (POST - Preguntas largas)</option>
+            <option value="openai">OpenAI (POST)</option>
+            <option value="torgpt">TorGPT (GET)</option>
+        </select>
 
-<script>
-async function sendQuestion() {
-    const question = document.getElementById("question").value;
-    if(!question) return;
-    
-    document.getElementById("answer").innerText = "Procesando...";
-    
-    try {
-        const response = await fetch(`/askGemini?question=${encodeURIComponent(question)}`);
-        const data = await response.json();
-        document.getElementById("answer").innerText = data.answer;
-    } catch (e) {
-        document.getElementById("answer").innerText = "Error al conectarse al backend.";
-        console.error(e);
-    }
-}
-</script>
+        <input type="text" id="question" placeholder="Escribe tu consulta técnica aquí...">
+        
+        <button id="sendBtn" onclick="sendQuestion()">Enviar Pregunta</button>
+
+        <div id="answer">La respuesta aparecerá aquí...</div>
+    </div>
+
+    <script>
+        async function sendQuestion() {
+            const questionInput = document.getElementById("question");
+            const model = document.getElementById("modelSelect").value;
+            const answerDiv = document.getElementById("answer");
+            const btn = document.getElementById("sendBtn");
+
+            if (!questionInput.value) return;
+
+            // Bloqueamos UI mientras carga
+            answerDiv.innerHTML = '<span class="loader">Consultando a la IA... esto puede tardar unos segundos...</span>';
+            btn.disabled = true;
+
+            try {
+                let response;
+                let url = "";
+
+                // Lógica de ruteo según el modelo seleccionado
+                if (model === "gemini") {
+                    url = `/askGemini?question=${encodeURIComponent(questionInput.value)}`;
+                    response = await fetch(url);
+                } 
+                else if (model === "torgpt") {
+                    url = `/ask_Tor_GPT?question=${encodeURIComponent(questionInput.value)}`;
+                    response = await fetch(url);
+                }
+                else if (model === "openai" || model === "gemini_post") {
+                    // Estos usan POST y cuerpo JSON
+                    url = model === "openai" ? "/ask_OpenAI" : "/ask_Gemini_Post";
+                    response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ question: questionInput.value })
+                    });
+                }
+
+                const data = await response.json();
+                
+                // Manejo de la respuesta (depende de cómo devuelva los datos tu API)
+                // Si viene de OpenAI/Gemini_Post usamos data.answer, si es TorGPT usamos data.text
+                const finalAnswer = data.answer || data.text || JSON.stringify(data);
+                answerDiv.innerText = finalAnswer;
+
+            } catch (e) {
+                answerDiv.innerText = "Error crítico: No se pudo conectar con el backend.";
+                console.error(e);
+            } finally {
+                btn.disabled = false;
+            }
+        }
+    </script>
 </body>
 </html>
