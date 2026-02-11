@@ -59,7 +59,7 @@ sin antes:
 venv\Scripts\activate
 
 
-💥 Resultado: librerías en global, proyecto raro, bugs fantasma
+Resultado: librerías en global, proyecto raro, bugs fantasma
 
 
 ------------

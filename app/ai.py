@@ -1,27 +1,20 @@
-from openai import OpenAI
 import os
-
 from dotenv import load_dotenv
+from openai import OpenAI
 import google.generativeai as genai
 
 load_dotenv()  # carga .env
 
 
-
+#Configure Gemini
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-model = genai.GenerativeModel("models/gemini-3-flash-preview")
+model_gemini = genai.GenerativeModel("models/gemini-3-flash-preview")
 
-
-
-API_KEY = os.getenv("OPENAI_API_KEY")
-if not API_KEY:
-    raise Exception("No se encontró OPENAI_API_KEY")
-
-client = OpenAI(api_key=API_KEY)
-
-
+#Configure OpenAI
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
+
+#OpenAI
 def ask_ai(question: str) -> str:
     response = client.chat.completions.create(
         model="gpt-4o-mini",
@@ -32,9 +25,10 @@ def ask_ai(question: str) -> str:
     )
     return response.choices[0].message.content
 
+#Gemini
 def ask_gemini(question: str) -> str:
     try:
-        response = model.generate_content(question)
+        response = model_gemini.generate_content(question)
         return response.text
     except Exception as e:
         return f"Gemini error: {e}"
