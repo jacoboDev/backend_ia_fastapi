@@ -67,7 +67,7 @@ def askGemini(question: str):
     return {"question": question, "answer": answer}
 
 
-@app.post("ask_Gemini_Post", response_model=AnswerResponse)
+@app.post("/ask_Gemini_Post", response_model=AnswerResponse)
 def ask_gemini_post(request: QuestionRequest):
     answer = ask_gemini(request.question)
     return {"answer": answer}
