@@ -131,3 +131,31 @@
     </script>
 </body>
 </html>
+
+<!-- This is the pattern for fetching de post questions
+async function sendQuestion() {
+    const question = document.getElementById("question").value;
+    const model = document.getElementById("modelSelect").value;
+    const answerDiv = document.getElementById("answer");
+
+    if (!question) return;
+
+    answerDiv.innerHTML = 'Consultando...';
+
+    try {
+        const response = await fetch("/ask", {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ question }) 
+        });
+
+        const data = await response.json();
+        
+        // El frontend ya sabe que siempre recibirá .answer
+        answerDiv.innerHTML = marked.parse(data.answer);
+
+    } catch (e) {
+        answerDiv.innerText = "Error de conexión.";
+    }
+} 
+-->
