@@ -79,11 +79,14 @@
     <div id="answer">La respuesta aparecerá aquí...</div>
 
     <script>
+
         async function sendQuestion() {
             const questionInput = document.getElementById("question");
             const model = document.getElementById("modelSelect").value;
             const answerDiv = document.getElementById("answer");
             const btn = document.getElementById("sendBtn");
+
+            const API_URL = "";
 
             if (!questionInput.value) return;
 
