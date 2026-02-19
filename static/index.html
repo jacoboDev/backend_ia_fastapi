@@ -100,7 +100,7 @@
 
                 // Lógica de ruteo según el modelo seleccionado
                 if (model === "gemini") {
-                    url = `/askGemini?question=${encodeURIComponent(questionInput.value)}`;
+                    url = `${BASE_URL}/askGemini?question=${encodeURIComponent(questionInput.value)}`;
                     response = await fetch(url);
                 } 
                 else if (model === "torgpt") {
@@ -112,7 +112,7 @@
                     url = model === "openai" 
                         ? `${BASE_URL}/ask_OpenAI` 
                         : `${BASE_URL}/ask_Gemini_Post`;
-                        
+
                     response = await fetch(url, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
