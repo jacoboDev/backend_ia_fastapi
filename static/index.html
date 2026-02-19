@@ -38,7 +38,9 @@
 
         button { background-color: #007bff; color: white; border: none; cursor: pointer; font-weight: bold; }
         button:hover { background-color: #0056b3; }
-        button:disabled { background-color: #ccc; }
+        button:disabled { 
+            background-color: #ccc; 
+            cursor: default; }
 
         /* La respuesta ahora es independiente y más ancha */
         #answer { 
@@ -56,6 +58,9 @@
         }
 
         .loader { color: #555; font-style: italic; }
+
+
+
     </style>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
@@ -87,7 +92,8 @@
             const btn = document.getElementById("sendBtn");
 
             const BASE_URL = "https://backend-ia-fastapi.onrender.com";
-
+            
+            
             if (!questionInput.value) return;
 
             // Bloqueamos UI mientras carga
