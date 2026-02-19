@@ -86,7 +86,7 @@
             const answerDiv = document.getElementById("answer");
             const btn = document.getElementById("sendBtn");
 
-            const API_URL = "";
+            const BASE_URL = "https://backend-ia-fastapi.onrender.com";
 
             if (!questionInput.value) return;
 
@@ -109,7 +109,10 @@
                 }
                 else if (model === "openai" || model === "gemini_post") {
                     // Estos usan POST y cuerpo JSON
-                    url = model === "openai" ? "/ask_OpenAI" : "/ask_Gemini_Post";
+                    url = model === "openai" 
+                        ? `${BASE_URL}/ask_OpenAI` 
+                        : `${BASE_URL}/ask_Gemini_Post`;
+                        
                     response = await fetch(url, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
