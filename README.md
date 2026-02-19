@@ -130,3 +130,17 @@ http://127.0.0.1:8000/static/index.html
 
 try gemini engine
 http://127.0.0.1:8000/askGemini?question=hola
+
+
+
+--------------- TEST ENGINE FROM CONSOLE
+// Prueba esto en la consola (ajusta /ask si en el docs ves otra cosa)
+fetch("https://backend-ia-fastapi.onrender.com/ask_Gemini_Post", { // <--- Sin barra al final si así está en Python
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ 
+    question: "Hola, ¿quién eres?"
+  })
+})
+.then(res => res.json())
+.then(console.log);
